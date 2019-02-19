@@ -9,12 +9,11 @@ const numberOfQuestion = 10;
 
 export default {
   name: "SpiderGraph",
-  inject: ["provider"],
   props: ["qid", "predefinedRatings", "dataRatings", "predefinedRatingsColor", "predefinedRatingsGridColor", "dataRatingsColor", "dataRatingsColorGridColor", "width", "height", "numberOfDataPoints"],
   mounted() {
     this.$refs["graph"].height = this.height!=undefined? this.height:500;
     this.$refs["graph"].width = this.width!=undefined? this.width:500;
-    this.provider.context = this.$refs["graph"].getContext("2d");
+    this.context = this.$refs["graph"].getContext("2d");
     if(this.numberOfDataPoints==undefined) {
       this.numberOfDataPoints = 10;
     }
@@ -25,8 +24,8 @@ export default {
   },
   methods: {
     draw() {
-      if (!this.provider.context) return;
-      const ctx = this.provider.context;
+      if (!this.context) return;
+      const ctx = this.context;
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.beginPath();
       let angel = -1.5715+(6.286/this.numberOfDataPoints/2);
@@ -46,7 +45,7 @@ export default {
       this.getRatings();
     },
     lineAtAngle(x1, y1, length, angle) {
-      const ctx = this.provider.context;
+      const ctx = this.context;
       ctx.beginPath();
       ctx.moveTo(x1, y1);
       ctx.strokeStyle = "#BBBBBB";
@@ -54,7 +53,7 @@ export default {
       ctx.stroke();
     },
     drawMiddleCircle() {
-      const ctx = this.provider.context;
+      const ctx = this.context;
       ctx.beginPath();
       ctx.arc(ctx.canvas.width/2, ctx.canvas.height/2, 50/600*ctx.canvas.height, 0, 2 * Math.PI, false);
       ctx.fillStyle = "white";
@@ -64,7 +63,7 @@ export default {
       ctx.stroke();
     },
     drawOuter(radious) {
-      const ctx = this.provider.context;
+      const ctx = this.context;
       ctx.beginPath();
       ctx.arc(ctx.canvas.width/2, ctx.canvas.height/2, radious, 0, 2 * Math.PI, false);
       ctx.lineWidth = 1;
@@ -72,7 +71,7 @@ export default {
       ctx.stroke();
     },
     drawNumber(i, angle) {
-      const ctx = this.provider.context;
+      const ctx = this.context;
       ctx.beginPath();
       ctx.font = (20/600*ctx.canvas.width)+"px Futura";
       ctx.fillStyle = "black";
@@ -118,7 +117,7 @@ export default {
       ctx.fillText(i > 10 ? i - 10 : i, x, y);
     },
     drawRating(i, angle, color) {
-      const ctx = this.provider.context;
+      const ctx = this.context;
       let x = ctx.canvas.width/2 + (50/600*ctx.canvas.width + 20/600*ctx.canvas.width * i) * Math.cos(angle);
       let y = ctx.canvas.height/2 + (50/600*ctx.canvas.height + 20/600*ctx.canvas.height * i) * Math.sin(angle);
       ctx.beginPath();
@@ -127,7 +126,7 @@ export default {
       ctx.fill();
     },
     drawRatingConnector(i, angle, i1, angle1, color) {
-      const ctx = this.provider.context;
+      const ctx = this.context;
       let x = ctx.canvas.width/2 + (50/600*ctx.canvas.width + 20/600*ctx.canvas.width * i) * Math.cos(angle);
       let y = ctx.canvas.height/2 + (50/600*ctx.canvas.height + 20/600*ctx.canvas.height * i) * Math.sin(angle);
       let x1 = ctx.canvas.width/2 + (50/600*ctx.canvas.width + 20/600*ctx.canvas.width * i1) * Math.cos(angle1);
@@ -140,7 +139,7 @@ export default {
       ctx.stroke();
     },
     drawRatingConnectorPlolygon(i, angle, i1, angle1, color) {
-      const ctx = this.provider.context;
+      const ctx = this.context;
       let x = ctx.canvas.width/2 + (50/600*ctx.canvas.width + 20/600*ctx.canvas.width * i) * Math.cos(angle);
       let y = ctx.canvas.height/2 + (50/600*ctx.canvas.height + 20/600*ctx.canvas.height * i) * Math.sin(angle);
       let x1 = ctx.canvas.width/2 + (50/600*ctx.canvas.width + 20/600*ctx.canvas.width * i1) * Math.cos(angle1);
