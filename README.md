@@ -12,7 +12,7 @@ npm install vue-spider-graph --save
 
 ## Demo Link
 
-[Demo](https://vue-spider-graph.herokuapp.com/)
+[Demo](https://vue-spider-graph.bittokazi.com/)
 
 ## Usage
 
