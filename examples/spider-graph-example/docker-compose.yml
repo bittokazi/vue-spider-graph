@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  vue-spider-graph-example:
+    image: vue-spider-graph-example
+    restart: always
+    network_mode: bridge
+    env_file: .env
+    ports:
+      - "5601:5601"
