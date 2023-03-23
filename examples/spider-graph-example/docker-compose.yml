@@ -2,6 +2,10 @@ version: "3"
 
 services:
   vue-spider-graph-example:
+    container_name: vue-spider-graph-example
+    build:
+      context: ./
+      dockerfile: Dockerfile
     image: vue-spider-graph-example
     restart: always
     network_mode: bridge
